@@ -22,4 +22,4 @@ How our project solves the issue:-
  5.Promotes the untouched areas of India to the tourist.
 
 ### Setup & Installation Instructions:
-[Provide clear, step-by-step instructions on how the judges can run your project locally. Include any commands needed to install dependencies and start the application.]
+Need to have VS code installed with extensions for HTML, CSS, JAVASCRIPT, LIVE PREVIEW with internet access
