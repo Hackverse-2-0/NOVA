@@ -1,34 +1,1382 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Tourism Help Chat</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>यात्रा Yatra — Contact Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════════
+   CSS VARIABLES
+══════════════════════════════════════════════ */
+:root {
+  --saffron:       #FF6B00;
+  --saffron-light: #FF9A40;
+  --saffron-dark:  #CC4E00;
+  --india-green:   #138808;
+  --navy:          #0a1628;
+  --navy-mid:      #112240;
+  --cream:         #FFF8F0;
+  --cream-warm:    #FFF3E6;
+  --gold:          #D4A017;
+  --gold-light:    #F0C84A;
+  --white:         #FFFFFF;
+  --gray-100:      #F5F5F5;
+  --gray-200:      #E8E8E8;
+  --gray-400:      #AAAAAA;
+  --gray-500:      #888888;
+  --gray-700:      #444444;
+  --red-alert:     #DC2626;
+  --orange-warn:   #F59E0B;
+  --shadow-warm:   0 20px 60px rgba(255,107,0,0.15);
+  --shadow-soft:   0 8px 30px rgba(10,22,40,0.08);
+  --radius-lg:     20px;
+  --radius-md:     14px;
+  --radius-sm:     10px;
+}
+
+/* ══════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--navy);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════════
+   TRICOLOR BAR
+══════════════════════════════════════════════ */
+.tricolor-bar {
+  height: 5px;
+  background: linear-gradient(90deg, var(--saffron) 33.3%, #ffffff 33.3%, #ffffff 66.6%, var(--india-green) 66.6%);
+}
+
+/* ══════════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════════ */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,22,40,0.97);
+  backdrop-filter: blur(20px);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+}
+.nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.nav-logo-icon {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.nav-logo-text { font-family: 'Yatra One', cursive; font-size: 1.4rem; color: white; }
+.nav-logo-sub  { font-size: 0.6rem; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: white; background: rgba(255,255,255,0.1); }
+.nav-links a.active { color: var(--saffron-light); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dark)) !important;
+  color: white !important;
+  padding: 9px 20px !important;
+  border-radius: 25px !important;
+  font-weight: 600 !important;
+}
+.nav-cta:hover { box-shadow: 0 6px 20px rgba(255,107,0,0.4); transform: translateY(-1px); }
+
+/* ══════════════════════════════════════════════
+   PAGE HERO
+══════════════════════════════════════════════ */
+.page-hero {
+  background: linear-gradient(160deg, #0a1628 0%, #1a2744 50%, #0d2b1a 100%);
+  padding: 80px 48px 70px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,107,0,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+.page-hero-mandala {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px; height: 500px;
+  opacity: 0.04;
+  background: conic-gradient(from 0deg, var(--saffron), var(--gold), var(--india-green), var(--saffron));
+  border-radius: 50%;
+  animation: spin 35s linear infinite;
+}
+@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+.page-hero-content { position: relative; z-index: 1; }
+.page-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,107,0,0.15);
+  border: 1px solid rgba(255,107,0,0.3);
+  color: var(--saffron-light);
+  padding: 7px 18px;
+  border-radius: 25px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.page-hero-devanagari {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-size: 1.3rem;
+  color: var(--saffron-light);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.page-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.4rem;
+  color: white;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.page-hero-title span { color: var(--gold); font-style: italic; }
+.page-hero-desc {
+  color: rgba(255,255,255,0.6);
+  font-size: 1rem;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT HELPERS
+══════════════════════════════════════════════ */
+.container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+section { padding: 90px 0; }
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--saffron);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.section-label::before { content: ''; width: 28px; height: 2px; background: var(--saffron); }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.section-desc { color: var(--gray-500); font-size: 1rem; line-height: 1.8; max-width: 540px; }
+
+/* ══════════════════════════════════════════════
+   EMERGENCY STRIP
+══════════════════════════════════════════════ */
+.emergency-strip {
+  background: linear-gradient(135deg, #7f1d1d, #991b1b, #b91c1c);
+  padding: 20px 48px;
+}
+.emergency-strip-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.emergency-strip-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.emergency-strip-pulse {
+  width: 10px; height: 10px;
+  background: #fca5a5;
+  border-radius: 50%;
+  animation: pulse 1.4s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.4);} }
+.emergency-numbers { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.emergency-num {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 25px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.emergency-num:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.emergency-num-code { font-size: 1.1rem; font-weight: 900; color: #fca5a5; }
+
+/* ══════════════════════════════════════════════
+   CONTACT GRID SECTION
+══════════════════════════════════════════════ */
+#contact-main { background: white; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* ── Contact Info Cards ── */
+.contact-info-stack { display: flex; flex-direction: column; gap: 20px; }
+.contact-info-card {
+  background: var(--cream);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+}
+.contact-info-card:hover {
+  border-color: rgba(255,107,0,0.3);
+  box-shadow: var(--shadow-warm);
+  transform: translateY(-3px);
+}
+.contact-info-icon {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dark));
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(255,107,0,0.3);
+}
+.contact-info-icon.green  { background: linear-gradient(135deg, var(--india-green), #0f6b07); box-shadow: 0 6px 18px rgba(19,136,8,0.3); }
+.contact-info-icon.gold   { background: linear-gradient(135deg, var(--gold), #b8860b);        box-shadow: 0 6px 18px rgba(212,160,23,0.3); }
+.contact-info-icon.navy   { background: linear-gradient(135deg, var(--navy-mid), #0a1628);    box-shadow: 0 6px 18px rgba(10,22,40,0.3); }
+.contact-info-label { font-size: 0.72rem; font-weight: 700; color: var(--gray-500); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+.contact-info-value { font-weight: 700; color: var(--navy); font-size: 0.95rem; margin-bottom: 3px; }
+.contact-info-sub   { font-size: 0.8rem; color: var(--gray-500); line-height: 1.5; }
+.contact-info-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  color: var(--india-green);
+  font-size: 0.65rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 20px;
+  border: 1px solid rgba(19,136,8,0.15);
+  margin-top: 6px;
+}
+
+/* ── Contact Form ── */
+.contact-form-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 24px;
+  padding: 42px 40px;
+  box-shadow: var(--shadow-soft);
+  position: sticky;
+  top: 100px;
+}
+.contact-form-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 6px; }
+.contact-form-subtitle { color: var(--gray-500); font-size: 0.875rem; margin-bottom: 30px; line-height: 1.6; }
+
+.form-group { margin-bottom: 18px; }
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.82rem;
+  margin-bottom: 7px;
+  letter-spacing: 0.2px;
+}
+.form-label span { color: var(--saffron); }
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--navy);
+  background: white;
+  transition: all 0.2s;
+  outline: none;
+}
+.form-input:focus       { border-color: var(--saffron); box-shadow: 0 0 0 4px rgba(255,107,0,0.08); }
+.form-input:hover:not(:focus) { border-color: var(--gray-400); }
+.form-input::placeholder { color: #bbb; }
+.form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-hint { font-size: 0.75rem; color: var(--gray-500); margin-top: 5px; }
+
+/* Subject chips */
+.subject-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.subject-chip {
+  padding: 7px 14px;
+  border: 2px solid var(--gray-200);
+  border-radius: 25px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+}
+.subject-chip:hover  { border-color: rgba(255,107,0,0.4); color: var(--saffron); }
+.subject-chip.active { border-color: var(--saffron); background: linear-gradient(135deg, #fff3e0, #fff8f0); color: var(--saffron-dark); }
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dark));
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+}
+.btn-submit:hover { box-shadow: 0 10px 30px rgba(255,107,0,0.4); transform: translateY(-2px); }
+.btn-submit:active { transform: translateY(0); }
+
+/* Form success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 32px 20px;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn { from{opacity:0;transform:scale(0.85);} to{opacity:1;transform:scale(1);} }
+.form-success-icon { font-size: 3.5rem; margin-bottom: 16px; }
+.form-success-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 8px; }
+.form-success-desc { color: var(--gray-500); font-size: 0.875rem; line-height: 1.7; }
+
+/* ══════════════════════════════════════════════
+   HELPLINES SECTION
+══════════════════════════════════════════════ */
+#helplines { background: var(--cream); }
+.helplines-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 50px;
+}
+.helpline-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.helpline-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.helpline-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-warm); }
+.helpline-card:hover::before { transform: scaleX(1); }
+.helpline-card.green::before { background: linear-gradient(90deg, var(--india-green), #22c55e); }
+.helpline-card.red::before   { background: linear-gradient(90deg, var(--red-alert), #f87171); }
+.helpline-card.gold::before  { background: linear-gradient(90deg, var(--gold), #fbbf24); }
+.helpline-card.navy::before  { background: linear-gradient(90deg, var(--navy), #3b82f6); }
+
+.helpline-icon { font-size: 2.2rem; margin-bottom: 14px; }
+.helpline-number {
+  font-family: 'Yatra One', cursive;
+  font-size: 2rem;
+  color: var(--saffron);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  display: block;
+}
+.helpline-card.green .helpline-number { color: var(--india-green); }
+.helpline-card.red   .helpline-number { color: var(--red-alert); }
+.helpline-card.gold  .helpline-number { color: #b8860b; }
+.helpline-card.navy  .helpline-number { color: var(--navy-mid); }
+
+.helpline-title { font-weight: 700; color: var(--navy); font-size: 0.95rem; margin-bottom: 4px; }
+.helpline-desc  { font-size: 0.8rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 14px; }
+.helpline-tag   {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.68rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px;
+}
+.helpline-tag.available { background: #dcfce7; color: #166534; }
+.helpline-tag.govt      { background: #dbeafe; color: #1e40af; }
+.helpline-call {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--saffron);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  transition: gap 0.2s;
+}
+.helpline-call:hover { gap: 10px; }
+.helpline-card.green .helpline-call { color: var(--india-green); }
+.helpline-card.red   .helpline-call { color: var(--red-alert); }
+
+/* ══════════════════════════════════════════════
+   FRRO OFFICES SECTION
+══════════════════════════════════════════════ */
+#frro-offices { background: var(--navy); }
+#frro-offices .section-title { color: white; }
+#frro-offices .section-desc  { color: rgba(255,255,255,0.55); }
+#frro-offices .section-label { color: var(--saffron-light); }
+#frro-offices .section-label::before { background: var(--saffron-light); }
+
+.frro-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 50px;
+}
+.frro-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px;
+  transition: all 0.3s;
+}
+.frro-card:hover {
+  background: rgba(255,107,0,0.08);
+  border-color: rgba(255,107,0,0.25);
+  transform: translateY(-4px);
+}
+.frro-city {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: white;
+  margin-bottom: 4px;
+}
+.frro-state { font-size: 0.75rem; color: var(--saffron-light); font-weight: 700; margin-bottom: 14px; letter-spacing: 0.5px; }
+.frro-detail { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+.frro-detail-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+.frro-detail-text { font-size: 0.78rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.frro-website {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--saffron-light);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-top: 6px;
+  transition: color 0.2s;
+}
+.frro-website:hover { color: var(--gold-light); }
+
+/* ══════════════════════════════════════════════
+   MAP SECTION
+══════════════════════════════════════════════ */
+#map-section { background: white; padding: 90px 0 0; }
+.map-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(10,22,40,0.15);
+  border: 1px solid var(--gray-200);
+}
+.map-info {
+  background: linear-gradient(160deg, var(--navy), #1a2744);
+  padding: 52px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.map-info-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; margin-bottom: 10px; }
+.map-info-desc  { color: rgba(255,255,255,0.55); font-size: 0.875rem; line-height: 1.8; margin-bottom: 32px; }
+.map-address-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+.map-address-icon {
+  width: 38px; height: 38px;
+  background: rgba(255,107,0,0.12);
+  border: 1px solid rgba(255,107,0,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+.map-address-label { font-size: 0.7rem; color: var(--saffron-light); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+.map-address-value { font-size: 0.875rem; color: rgba(255,255,255,0.8); line-height: 1.5; }
+.map-social { display: flex; gap: 10px; margin-top: 28px; }
+.map-social-btn {
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.map-social-btn:hover { background: rgba(255,107,0,0.2); border-color: rgba(255,107,0,0.3); }
+.map-embed {
+  background: #e8e8e8;
+  min-height: 420px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  inset: 0;
+}
+.map-placeholder {
+  text-align: center;
+  color: var(--gray-500);
+  z-index: 1;
+  padding: 20px;
+}
+.map-placeholder-icon { font-size: 3rem; margin-bottom: 12px; display: block; }
+.map-placeholder-text { font-size: 0.875rem; color: var(--gray-500); }
+
+/* ══════════════════════════════════════════════
+   SOCIAL LINKS SECTION
+══════════════════════════════════════════════ */
+#social { background: var(--cream); padding: 80px 0; }
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.social-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.social-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-warm); border-color: rgba(255,107,0,0.2); }
+.social-icon { font-size: 2rem; }
+.social-name { font-weight: 700; color: var(--navy); font-size: 0.85rem; }
+.social-handle { font-size: 0.75rem; color: var(--saffron); font-weight: 600; }
+.social-followers { font-size: 0.7rem; color: var(--gray-500); }
+
+/* ══════════════════════════════════════════════
+   FAQ SECTION
+══════════════════════════════════════════════ */
+#faq { background: white; }
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 50px;
+}
+.faq-item {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.faq-item.open { border-color: rgba(255,107,0,0.3); }
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--navy);
+  user-select: none;
+  gap: 12px;
+  background: white;
+  transition: background 0.2s;
+}
+.faq-item.open .faq-question { background: linear-gradient(135deg, var(--cream), var(--cream-warm)); color: var(--saffron-dark); }
+.faq-arrow { color: var(--saffron); font-size: 0.85rem; transition: transform 0.3s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.25s ease;
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+  background: white;
+  padding: 0 22px;
+}
+.faq-item.open .faq-answer { max-height: 300px; padding: 0 22px 20px; }
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer { background: var(--navy); padding: 52px 0 28px; }
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 44px;
+}
+.footer-brand-logo { font-family: 'Yatra One', cursive; font-size: 1.8rem; color: var(--saffron); margin-bottom: 10px; }
+.footer-brand-desc { color: rgba(255,255,255,0.45); font-size: 0.85rem; line-height: 1.7; margin-bottom: 18px; }
+.footer-gov-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.footer-gov-tag {
+  background: rgba(255,107,0,0.1);
+  border: 1px solid rgba(255,107,0,0.2);
+  color: var(--saffron-light);
+  font-size: 0.65rem; font-weight: 600;
+  padding: 3px 9px; border-radius: 20px;
+}
+.footer-heading { color: var(--gold); font-weight: 700; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; }
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+.footer-links a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-bottom-text { color: rgba(255,255,255,0.25); font-size: 0.75rem; }
+
+/* ══════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  top: 24px; right: 24px;
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.875rem;
+  z-index: 9000;
+  transform: translateX(140%);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  max-width: 340px;
+  line-height: 1.5;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.toast.show   { transform: translateX(0); }
+.toast.success { background: linear-gradient(135deg,#ecfdf5,#d1fae5); color:#065f46; border:1px solid rgba(6,95,70,0.2); }
+.toast.error   { background: linear-gradient(135deg,#fef2f2,#fee2e2); color:#991b1b; border:1px solid rgba(153,27,27,0.2); }
+.toast.warning { background: linear-gradient(135deg,#fffbeb,#fef3c7); color:#92400e; border:1px solid rgba(146,64,14,0.2); }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .frro-grid   { grid-template-columns: repeat(2, 1fr); }
+  .social-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-form-card { position: static; }
+  .map-inner { grid-template-columns: 1fr; }
+  .map-embed { min-height: 280px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  nav { padding: 14px 20px; }
+  .page-hero { padding: 60px 20px 50px; }
+  .page-hero-title { font-size: 2.2rem; }
+  .emergency-strip { padding: 16px 20px; }
+  .emergency-numbers { gap: 10px; }
+  .container { padding: 0 16px; }
+  section { padding: 64px 0; }
+  .helplines-grid  { grid-template-columns: 1fr; }
+  .frro-grid       { grid-template-columns: 1fr; }
+  .social-grid     { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner    { grid-template-columns: 1fr; }
+  .form-row        { grid-template-columns: 1fr; }
+  .section-title   { font-size: 2rem; }
+  .nav-links a:not(.nav-cta):not(:last-child) { display: none; }
+}
+</style>
 </head>
 <body>
 
-<header>
-    <h1>🇮🇳 Tourism Help Center</h1>
-    <a href="index.html">Back to Home</a>
-</header>
+<!-- TRICOLOR BAR -->
+<div class="tricolor-bar"></div>
 
-<div class="chat-container">
-    <div class="chat-box" id="chatBox">
-        <div class="bot-message">Hello 👋 Welcome to Incredible India Help Desk! Ask me anything.</div>
+<!-- ══════════ NAVBAR ══════════ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">🇮🇳</div>
+    <div>
+      <div class="nav-logo-text">यात्रा YATRA</div>
+      <div class="nav-logo-sub">Incredible India</div>
     </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#destinations">Destinations</a>
+    <a href="index.html#visa-tracker">Visa Tracker</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="yatra-auth.html" class="nav-cta">Login / Register</a>
+  </div>
+</nav>
 
-    <div class="chat-input">
-        <input type="text" id="userInput" placeholder="Type your question...">
-        <button onclick="chatbot()">Send</button>
-    </div>
+<!-- ══════════ PAGE HERO ══════════ -->
+<div class="page-hero">
+  <div class="page-hero-mandala"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-badge">📞 We're here to help</div>
+    <div class="page-hero-devanagari">सम्पर्क करें — हम यहाँ हैं</div>
+    <h1 class="page-hero-title">Get in <span>Touch</span> With Us</h1>
+    <p class="page-hero-desc">Whether you need travel guidance, visa support, emergency help, or want to partner with us — our team and government helplines are available 24/7.</p>
+  </div>
 </div>
 
-<section class="safety">
-    <h2>🚨 Emergency Numbers</h2>
-    <p>Police: 100</p>
-    <p>National Emergency: 112</p>
-    <p>Tourist Helpline: 1363</p>
+<!-- ══════════ EMERGENCY STRIP ══════════ -->
+<div class="emergency-strip">
+  <div class="emergency-strip-inner">
+    <div class="emergency-strip-label">
+      <div class="emergency-strip-pulse"></div>
+      🚨 Emergency Helplines — Available 24/7
+    </div>
+    <div class="emergency-numbers">
+      <a href="tel:1363"  class="emergency-num"><span class="emergency-num-code">1363</span> Tourist Helpline</a>
+      <a href="tel:100"   class="emergency-num"><span class="emergency-num-code">100</span> Police</a>
+      <a href="tel:108"   class="emergency-num"><span class="emergency-num-code">108</span> Ambulance</a>
+      <a href="tel:18001111363" class="emergency-num"><span class="emergency-num-code">1800-11-1363</span> FRRO</a>
+      <a href="tel:1091"  class="emergency-num"><span class="emergency-num-code">1091</span> Women</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CONTACT MAIN ══════════ -->
+<section id="contact-main">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT: Info Cards -->
+      <div>
+        <div class="section-label">📍 Reach Us</div>
+        <h2 class="section-title">Contact Information</h2>
+        <p class="section-desc" style="margin-bottom: 36px;">Multiple ways to connect — choose what works best for your needs.</p>
+
+        <div class="contact-info-stack">
+
+          <a href="mailto:support@yatra.gov.in" class="contact-info-card">
+            <div class="contact-info-icon">📧</div>
+            <div>
+              <div class="contact-info-label">Email Support</div>
+              <div class="contact-info-value">support@yatra.gov.in</div>
+              <div class="contact-info-sub">General queries, booking help, feedback.<br>Response within 24 hours.</div>
+              <div class="contact-info-tag">✅ Official Channel</div>
+            </div>
+          </a>
+
+          <a href="tel:18001801234" class="contact-info-card">
+            <div class="contact-info-icon green">📞</div>
+            <div>
+              <div class="contact-info-label">Toll-Free Helpline</div>
+              <div class="contact-info-value">1800-180-1234</div>
+              <div class="contact-info-sub">Platform support, visa tracker, account issues.<br>Mon–Sat 9 AM to 6 PM IST.</div>
+              <div class="contact-info-tag">🇮🇳 MoT Registered</div>
+            </div>
+          </a>
+
+          <a href="https://indianfrro.gov.in" target="_blank" class="contact-info-card">
+            <div class="contact-info-icon navy">🛂</div>
+            <div>
+              <div class="contact-info-label">FRRO — Visa Overstay / Extension</div>
+              <div class="contact-info-value">indianfrro.gov.in</div>
+              <div class="contact-info-sub">For visa extensions, overstay regularisation, and foreigner registration. Call: <strong>1800-11-1363</strong></div>
+              <div class="contact-info-tag">✅ Bureau of Immigration</div>
+            </div>
+          </a>
+
+          <a href="https://tourism.gov.in" target="_blank" class="contact-info-card">
+            <div class="contact-info-icon gold">🏛️</div>
+            <div>
+              <div class="contact-info-label">Ministry of Tourism</div>
+              <div class="contact-info-value">tourism.gov.in</div>
+              <div class="contact-info-sub">Official tourism policies, operator empanelment, destination data, and Incredible India campaign.</div>
+              <div class="contact-info-tag">✅ Govt of India</div>
+            </div>
+          </a>
+
+          <div class="contact-info-card" style="cursor:default;">
+            <div class="contact-info-icon">📍</div>
+            <div>
+              <div class="contact-info-label">Head Office</div>
+              <div class="contact-info-value">Yatra Platform, New Delhi</div>
+              <div class="contact-info-sub">Transport Bhawan, 1 Sansad Marg,<br>New Delhi – 110 001, India.</div>
+              <div class="contact-info-tag">🗺️ Near Rajpath</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact Form -->
+      <div class="contact-form-card">
+        <div id="formBody">
+          <h3 class="contact-form-title">Send Us a Message</h3>
+          <p class="contact-form-subtitle">Fill in your query below and our team will respond within 24 hours. For emergencies, please call 1363 directly.</p>
+
+          <!-- Subject chips -->
+          <div class="form-group">
+            <label class="form-label">Topic <span>*</span></label>
+            <div class="subject-chips">
+              <button class="subject-chip active" onclick="selectChip(this)">🗺️ Travel Help</button>
+              <button class="subject-chip" onclick="selectChip(this)">🛂 Visa Query</button>
+              <button class="subject-chip" onclick="selectChip(this)">🤖 AI Chatbot</button>
+              <button class="subject-chip" onclick="selectChip(this)">🏨 Operator</button>
+              <button class="subject-chip" onclick="selectChip(this)">🚨 Urgent</button>
+              <button class="subject-chip" onclick="selectChip(this)">💡 Feedback</button>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name <span>*</span></label>
+              <input type="text" class="form-input" id="cName" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nationality</label>
+              <input type="text" class="form-input" id="cNationality" placeholder="e.g. Indian, American">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address <span>*</span></label>
+              <input type="email" class="form-input" id="cEmail" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone / WhatsApp</label>
+              <input type="tel" class="form-input" id="cPhone" placeholder="+91 or country code">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Current Location in India</label>
+            <input type="text" class="form-input" id="cLocation" placeholder="e.g. Agra, Uttar Pradesh">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Your Message <span>*</span></label>
+            <textarea class="form-input form-textarea" id="cMessage" placeholder="Describe your query in detail. For visa issues, mention your visa number and expiry date..."></textarea>
+            <div class="form-hint">🔒 Your information is secure and handled as per Govt. of India data protection guidelines.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Visa Number (if applicable)</label>
+            <input type="text" class="form-input" id="cVisaNum" placeholder="IND2024XXXXXXXXXX — only if query is visa-related">
+          </div>
+
+          <button class="btn-submit" onclick="submitForm()">
+            📨 Send Message to Yatra Team
+          </button>
+        </div>
+
+        <!-- Success State -->
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">🎉</div>
+          <h3 class="form-success-title">Message Sent!</h3>
+          <p class="form-success-desc">
+            Thank you for reaching out. Our team will respond to your email within <strong>24 hours</strong>.<br><br>
+            For urgent help, please call:<br>
+            <strong style="color:var(--saffron);">📞 Tourist Helpline: 1363</strong><br>
+            <strong style="color:var(--red-alert);">🛂 FRRO (Visa): 1800-11-1363</strong>
+          </p>
+          <button class="btn-submit" style="margin-top:20px;max-width:200px;" onclick="resetForm()">Send Another</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
+<!-- ══════════ HELPLINES ══════════ -->
+<section id="helplines">
+  <div class="container">
+    <div class="section-label">🆘 Emergency & Support</div>
+    <h2 class="section-title">Official Helpline Numbers</h2>
+    <p class="section-desc">All numbers are government-verified, toll-free, and operational across India.</p>
+
+    <div class="helplines-grid">
+
+      <div class="helpline-card">
+        <div class="helpline-icon">🗺️</div>
+        <span class="helpline-number">1363</span>
+        <div class="helpline-title">National Tourist Helpline</div>
+        <div class="helpline-desc">Multilingual support for all tourists — English, Hindi, and regional languages. Travel queries, complaints, emergency routing.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="helpline-tag available">🟢 24 / 7</span>
+          <span class="helpline-tag govt">🏛️ Ministry of Tourism</span>
+        </div>
+        <a href="tel:1363" class="helpline-call">📞 Call 1363 →</a>
+      </div>
+
+      <div class="helpline-card red">
+        <div class="helpline-icon">🛂</div>
+        <span class="helpline-number">1800-11-1363</span>
+        <div class="helpline-title">FRRO Visa Helpline</div>
+        <div class="helpline-desc">For visa overstay, extension, foreigner registration, and Bureau of Immigration queries. Visit indianfrro.gov.in to apply online.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="helpline-tag available">🟢 24 / 7</span>
+          <span class="helpline-tag govt">🏛️ Ministry of Home Affairs</span>
+        </div>
+        <a href="tel:18001111363" class="helpline-call">📞 Call FRRO →</a>
+      </div>
+
+      <div class="helpline-card green">
+        <div class="helpline-icon">🚑</div>
+        <span class="helpline-number">108</span>
+        <div class="helpline-title">Medical Emergency</div>
+        <div class="helpline-desc">National ambulance service. Free, GPS-enabled ambulance dispatch across all states and union territories.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="helpline-tag available">🟢 24 / 7</span>
+          <span class="helpline-tag govt">🏛️ Ministry of Health</span>
+        </div>
+        <a href="tel:108" class="helpline-call">📞 Call 108 →</a>
+      </div>
+
+      <div class="helpline-card navy">
+        <div class="helpline-icon">🚔</div>
+        <span class="helpline-number">100</span>
+        <div class="helpline-title">Police Emergency</div>
+        <div class="helpline-desc">For theft, assault, or any crime affecting tourists. State police control rooms connected. File FIR online at cybercrime.gov.in.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="helpline-tag available">🟢 24 / 7</span>
+          <span class="helpline-tag govt">🏛️ Ministry of Home Affairs</span>
+        </div>
+        <a href="tel:100" class="helpline-call" style="color:var(--navy-mid);">📞 Call 100 →</a>
+      </div>
+
+      <div class="helpline-card gold">
+        <div class="helpline-icon">👩</div>
+        <span class="helpline-number">1091</span>
+        <div class="helpline-title">Women Safety Helpline</div>
+        <div class="helpline-desc">Dedicated helpline for women in distress. Police response, shelter, legal aid, and counselling. Available in all states.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="helpline-tag available">🟢 24 / 7</span>
+          <span class="helpline-tag govt">🏛️ Ministry of WCD</span>
+        </div>
+        <a href="tel:1091" class="helpline-call" style="color:#b8860b;">📞 Call 1091 →</a>
+      </div>
+
+      <div class="helpline-card">
+        <div class="helpline-icon">🔥</div>
+        <span class="helpline-number">112</span>
+        <div class="helpline-title">National Emergency Number</div>
+        <div class="helpline-desc">Unified emergency number connecting Police, Fire, and Ambulance from a single dial. Works even without SIM balance or signal.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="helpline-tag available">🟢 24 / 7</span>
+          <span class="helpline-tag govt">🏛️ MHA ERSS</span>
+        </div>
+        <a href="tel:112" class="helpline-call">📞 Call 112 →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FRRO OFFICES ══════════ -->
+<section id="frro-offices">
+  <div class="container">
+    <div class="section-label">🏛️ FRRO Offices</div>
+    <h2 class="section-title">Foreigners Registration Offices</h2>
+    <p class="section-desc">Visit the FRRO office in your city for in-person visa extension, registration, and emergency documentation.</p>
+
+    <div class="frro-grid">
+
+      <div class="frro-card">
+        <div class="frro-city">New Delhi</div>
+        <div class="frro-state">National Capital Territory</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">East Block VIII, Level 2, R.K. Puram, New Delhi — 110 066</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-11-2671-1348</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 9:30 AM – 1:00 PM (walk-in)</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+      <div class="frro-card">
+        <div class="frro-city">Mumbai</div>
+        <div class="frro-state">Maharashtra</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">Special Branch, CID, Annex, D.N. Road, Mumbai — 400 001</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-22-2262-0446</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 9:30 AM – 5:30 PM</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+      <div class="frro-card">
+        <div class="frro-city">Bengaluru</div>
+        <div class="frro-state">Karnataka</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">2nd Floor, Kagadaspura Main Road, C.V. Raman Nagar, Bengaluru — 560 093</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-80-2541-3757</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 9:30 AM – 5:00 PM</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+      <div class="frro-card">
+        <div class="frro-city">Chennai</div>
+        <div class="frro-state">Tamil Nadu</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">Shastri Bhavan, 26 Haddows Road, Nungambakkam, Chennai — 600 006</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-44-2827-6530</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 9:30 AM – 5:00 PM</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+      <div class="frro-card">
+        <div class="frro-city">Kolkata</div>
+        <div class="frro-state">West Bengal</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">237 Acharya J.C. Bose Road, Kolkata — 700 020</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-33-2247-3301</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 9:30 AM – 5:00 PM</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+      <div class="frro-card">
+        <div class="frro-city">Hyderabad</div>
+        <div class="frro-state">Telangana</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">3rd Floor, GSI Complex, Bandlaguda, Nagole, Hyderabad — 500 068</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-40-2420-1750</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 9:30 AM – 5:00 PM</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+      <div class="frro-card">
+        <div class="frro-city">Amritsar</div>
+        <div class="frro-state">Punjab</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">District Collectorate Complex, Amritsar — 143 001</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-183-256-2345</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 9:30 AM – 4:00 PM</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+      <div class="frro-card">
+        <div class="frro-city">Ahmedabad</div>
+        <div class="frro-state">Gujarat</div>
+        <div class="frro-detail"><div class="frro-detail-icon">📍</div><div class="frro-detail-text">Foreigners Registration Office, Gandhinagar — 382 010</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">📞</div><div class="frro-detail-text">+91-79-2323-8720</div></div>
+        <div class="frro-detail"><div class="frro-detail-icon">⏰</div><div class="frro-detail-text">Mon–Fri: 10:00 AM – 5:00 PM</div></div>
+        <a href="https://indianfrro.gov.in" target="_blank" class="frro-website">🌐 Book Appointment →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MAP SECTION ══════════ -->
+<section id="map-section">
+  <div class="container">
+    <div class="map-inner">
+
+      <div class="map-info">
+        <div>
+          <h3 class="map-info-title">Find Us in New Delhi</h3>
+          <p class="map-info-desc">Our main office is located in the heart of New Delhi, near the Ministry of Tourism and major government offices.</p>
+
+          <div class="map-address-item">
+            <div class="map-address-icon">📍</div>
+            <div>
+              <div class="map-address-label">Head Office</div>
+              <div class="map-address-value">Transport Bhawan, 1 Sansad Marg,<br>New Delhi – 110 001</div>
+            </div>
+          </div>
+          <div class="map-address-item">
+            <div class="map-address-icon">⏰</div>
+            <div>
+              <div class="map-address-label">Office Hours</div>
+              <div class="map-address-value">Monday – Friday: 9:30 AM – 6:00 PM IST<br>Saturday: 10:00 AM – 2:00 PM IST</div>
+            </div>
+          </div>
+          <div class="map-address-item">
+            <div class="map-address-icon">📞</div>
+            <div>
+              <div class="map-address-label">Direct Line</div>
+              <div class="map-address-value">+91-11-2371-8888<br>1800-180-1234 (Toll-Free)</div>
+            </div>
+          </div>
+          <div class="map-address-item">
+            <div class="map-address-icon">🚇</div>
+            <div>
+              <div class="map-address-label">Nearest Metro</div>
+              <div class="map-address-value">Udyog Bhawan — Yellow Line<br>5 min walk from station</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Follow Yatra</p>
+          <div class="map-social">
+            <a href="#" class="map-social-btn" title="Twitter / X">🐦</a>
+            <a href="#" class="map-social-btn" title="Instagram">📸</a>
+            <a href="#" class="map-social-btn" title="Facebook">👥</a>
+            <a href="#" class="map-social-btn" title="YouTube">▶️</a>
+            <a href="#" class="map-social-btn" title="WhatsApp">💬</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-embed">
+        <!-- Replace src below with your actual Google Maps embed URL -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.0!2d77.2090!3d28.6139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSansad%20Marg%2C%20New%20Delhi!5e0!3m2!1sen!2sin!4v1"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Yatra Office Location">
+        </iframe>
+        <!-- Shown if iframe fails -->
+        <div class="map-placeholder" style="display:none;">
+          <span class="map-placeholder-icon">🗺️</span>
+          <div class="map-placeholder-text">Transport Bhawan, 1 Sansad Marg<br>New Delhi – 110 001</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SOCIAL LINKS ══════════ -->
+<section id="social">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="section-label" style="justify-content:center;">📲 Social Media</div>
+      <h2 class="section-title">Follow Incredible India</h2>
+      <p class="section-desc" style="margin:0 auto;">Stay updated on destinations, travel tips, visa news, and government announcements.</p>
+    </div>
+    <div class="social-grid">
+      <a href="#" class="social-card">
+        <div class="social-icon">🐦</div>
+        <div class="social-name">Twitter / X</div>
+        <div class="social-handle">@YatraIndia</div>
+        <div class="social-followers">128K followers</div>
+      </a>
+      <a href="#" class="social-card">
+        <div class="social-icon">📸</div>
+        <div class="social-name">Instagram</div>
+        <div class="social-handle">@yatra.incredible.india</div>
+        <div class="social-followers">340K followers</div>
+      </a>
+      <a href="#" class="social-card">
+        <div class="social-icon">👥</div>
+        <div class="social-name">Facebook</div>
+        <div class="social-handle">YatraIncredibleIndia</div>
+        <div class="social-followers">512K likes</div>
+      </a>
+      <a href="#" class="social-card">
+        <div class="social-icon">▶️</div>
+        <div class="social-name">YouTube</div>
+        <div class="social-handle">Yatra — Incredible India</div>
+        <div class="social-followers">89K subscribers</div>
+      </a>
+      <a href="#" class="social-card">
+        <div class="social-icon">💬</div>
+        <div class="social-name">WhatsApp</div>
+        <div class="social-handle">+91 98765 43210</div>
+        <div class="social-followers">Chat support</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">❓ Common Queries</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-desc">Quick answers to the most common questions from tourists and operators.</p>
+
+    <div class="faq-grid">
+      <div class="faq-item open" onclick="toggleFaq(this)">
+        <div class="faq-question">My visa has expired. What should I do immediately? <span class="faq-arrow">▼</span></div>
+        <div class="faq-answer">Contact FRRO immediately at 1800-11-1363 or visit indianfrro.gov.in. Do not attempt to leave India without regularising your status — you could be detained at the airport. Carry your passport, all visa documents, hotel bookings, and financial proof to the nearest FRRO office. Overstaying is an offence under the Foreigners Act 1946, but regularisation is possible.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">How do I apply for an Indian e-Tourist Visa? <span class="faq-arrow">▼</span></div>
+        <div class="faq-answer">Apply online at indianvisaonline.gov.in. The e-Tourist Visa is available for 169 countries, with processing in 3–5 business days. Validity options: 30 days, 1 year, or 5 years. Entry is permitted only through 28 designated international airports. Fee ranges from $25 to $80 depending on duration.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">How do I register as a verified tour operator on Yatra? <span class="faq-arrow">▼</span></div>
+        <div class="faq-answer">Register on the platform as an "Operator" and upload your Ministry of Tourism (MoT) operator licence, GST certificate, and PAN card. Our team verifies credentials within 48 hours. Once approved, you receive a "MoT Verified" badge and access to tourist lead management tools.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">What languages does the Tourist Helpline (1363) support? <span class="faq-arrow">▼</span></div>
+        <div class="faq-answer">The National Tourist Helpline 1363 supports English, Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, and more. It operates 24/7 and can route calls to local state tourism boards for region-specific assistance.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">How does the Yatra visa tracker work? <span class="faq-arrow">▼</span></div>
+        <div class="faq-answer">When you register with your visa details (expiry date, visa type, entry date), our system tracks your remaining days. You receive automatic alerts 30 days, 7 days, and 1 day before expiry. If your visa expires without a registered departure, the system flags your account as "Overstaying" and connects you with FRRO guidance immediately.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">Is my personal data safe on the Yatra platform? <span class="faq-arrow">▼</span></div>
+        <div class="faq-answer">Yes. All data is encrypted at rest and in transit using industry-standard AES-256 encryption. We comply with the Ministry of Electronics & IT data protection guidelines. Passport and visa data is used solely for visa tracking and is never sold to third parties. You can request data deletion at any time by emailing privacy@yatra.gov.in.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="tricolor-bar"></div>
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-logo">यात्रा YATRA</div>
+        <p class="footer-brand-desc">India's most trusted tourism platform — powered by verified government data, real-time visa intelligence, and AI-guided travel assistance.</p>
+        <div class="footer-gov-tags">
+          <span class="footer-gov-tag">Ministry of Tourism</span>
+          <span class="footer-gov-tag">ASI</span>
+          <span class="footer-gov-tag">FRRO</span>
+          <span class="footer-gov-tag">DigiLocker</span>
+          <span class="footer-gov-tag">data.gov.in</span>
+          <span class="footer-gov-tag">UNESCO</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Explore</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#destinations">Destinations</a>
+          <a href="index.html#visa-tracker">Visa Tracker</a>
+          <a href="index.html#features">Features</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Government</div>
+        <div class="footer-links">
+          <a href="https://tourism.gov.in" target="_blank">Ministry of Tourism</a>
+          <a href="https://indianfrro.gov.in" target="_blank">FRRO Portal</a>
+          <a href="https://asi.nic.in" target="_blank">ASI</a>
+          <a href="https://indianvisaonline.gov.in" target="_blank">e-Visa Portal</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Emergency</div>
+        <div class="footer-links">
+          <a href="tel:1363">📞 1363 Tourist Helpline</a>
+          <a href="tel:100">🚔 100 Police</a>
+          <a href="tel:108">🚑 108 Ambulance</a>
+          <a href="tel:18001111363">🛂 FRRO: 1800-11-1363</a>
+          <a href="tel:1091">👩 1091 Women Helpline</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-text">© 2025 Yatra — Incredible India Tourism Platform. Built with 🧡 for India.</div>
+      <div class="footer-bottom-text">Data: Ministry of Tourism · ASI · Bureau of Immigration</div>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Subject Chip Selection ────────────────────────────────────────────────
+function selectChip(el) {
+  document.querySelectorAll('.subject-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── Contact Form Submit ───────────────────────────────────────────────────
+function submitForm() {
+  const name    = document.getElementById('cName').value.trim();
+  const email   = document.getElementById('cEmail').value.trim();
+  const message = document.getElementById('cMessage').value.trim();
+
+  if (!name)    return showToast('Please enter your full name.', 'error');
+  if (!email)   return showToast('Please enter a valid email address.', 'error');
+  if (!message) return showToast('Please describe your query before sending.', 'error');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('Please enter a valid email address.', 'error');
+
+  // Hide form, show success
+  document.getElementById('formBody').style.display    = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+  showToast('✅ Message sent! We\'ll respond within 24 hours.', 'success');
+}
+
+function resetForm() {
+  document.getElementById('formBody').style.display    = 'block';
+  document.getElementById('formSuccess').style.display = 'none';
+  ['cName','cEmail','cPhone','cNationality','cLocation','cMessage','cVisaNum']
+    .forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('.subject-chip').forEach((c,i) => c.classList.toggle('active', i===0));
+}
+
+// ── FAQ Accordion ─────────────────────────────────────────────────────────
+function toggleFaq(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+</script>
 </body>
 </html>

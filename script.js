@@ -339,3 +339,21 @@ function login(){
     alert("Login Successful (Demo Mode)");
     closeLogin();
 }
+function handleContactSubmit(event) {
+    event.preventDefault();
+    const toast = document.getElementById('toast');
+    
+    // Simple UI Feedback
+    toast.innerText = "Connecting to Help Desk... Please wait.";
+    toast.className = "toast show warning";
+    
+    setTimeout(() => {
+        toast.innerText = "Message Sent! Reference ID: " + Math.floor(Math.random() * 900000);
+        toast.className = "toast show success";
+        event.target.reset();
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }, 1500);
+}

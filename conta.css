@@ -1,0 +1,49 @@
+/* CONTACT PAGE SPECIFIC */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.contact-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.help-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.help-icon {
+  font-size: 1.8rem;
+  background: var(--cream2);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.help-card strong { font-size: 0.9rem; color: var(--muted); }
+.help-card p { font-weight: 700; color: var(--saffron); margin-top: 2px; }
+
+.contact-form-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}

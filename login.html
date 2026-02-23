@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>यात्रा Yatra — Login & Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ── CSS VARIABLES ── */
+:root {
+  --saffron: #FF6B00;
+  --saffron-light: #FF9A40;
+  --saffron-dark: #CC4E00;
+  --india-green: #138808;
+  --navy: #0a1628;
+  --navy-mid: #112240;
+  --cream: #FFF8F0;
+  --cream-warm: #FFF3E6;
+  --gold: #D4A017;
+  --white: #FFFFFF;
+  --gray-100: #F5F5F5;
+  --gray-200: #E8E8E8;
+  --gray-500: #888;
+  --gray-700: #444;
+  --red-alert: #DC2626;
+  --shadow-warm: 0 20px 60px rgba(255,107,0,0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: linear-gradient(160deg, #0a1628 0%, #1a2744 40%, #0d2b1a 70%, #0a1628 100%);
+  min-height: 100vh;
+  color: var(--navy);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TRICOLOR TOP BAR ── */
+.tricolor-bar {
+  height: 5px;
+  background: linear-gradient(90deg, var(--saffron) 33%, white 33%, white 66%, var(--india-green) 66%);
+  flex-shrink: 0;
+}
+
+/* ── BACKGROUND DECORATIONS ── */
+.bg-mandala {
+  position: fixed;
+  right: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 700px;
+  height: 700px;
+  opacity: 0.04;
+  background: conic-gradient(from 0deg, var(--saffron), var(--gold), var(--india-green), var(--saffron));
+  border-radius: 50%;
+  animation: rotateMandala 40s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.bg-dots {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,107,0,0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes rotateMandala { to { transform: translateY(-50%) rotate(360deg); } }
+
+/* ── PAGE LAYOUT ── */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* ── AUTH CONTAINER ── */
+.auth-container {
+  width: 100%;
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  animation: slideUp 0.7s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(50px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── LEFT PANEL ── */
+.auth-left {
+  background: linear-gradient(160deg, #0a1628, #1a3a5c, #0d2b1a);
+  padding: 52px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.auth-left::before {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 320px;
+  height: 320px;
+  background: conic-gradient(from 0deg, rgba(255,107,0,0.15), rgba(212,160,23,0.1), rgba(19,136,8,0.1), transparent);
+  border-radius: 50%;
+  animation: rotateMandala 20s linear infinite;
+}
+.left-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+.left-logo-icon {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 8px 25px rgba(255,107,0,0.4);
+}
+.left-logo-text { font-family: 'Yatra One', cursive; font-size: 1.6rem; color: white; letter-spacing: 1px; }
+.left-logo-sub { font-size: 0.65rem; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-weight: 500; }
+
+.left-headline { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: white; line-height: 1.2; margin-bottom: 16px; }
+.left-headline span { color: var(--gold); font-style: italic; }
+.left-devanagari { font-family: 'Tiro Devanagari Hindi', serif; font-size: 1.2rem; color: var(--saffron-light); margin-bottom: 20px; letter-spacing: 1px; }
+.left-desc { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.8; margin-bottom: 36px; }
+
+.left-features { display: flex; flex-direction: column; gap: 14px; }
+.left-feature { display: flex; align-items: flex-start; gap: 12px; }
+.left-feature-icon {
+  width: 36px; height: 36px;
+  background: rgba(255,107,0,0.12);
+  border: 1px solid rgba(255,107,0,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.left-feature-text { }
+.left-feature-title { color: white; font-weight: 600; font-size: 0.85rem; }
+.left-feature-desc { color: rgba(255,255,255,0.5); font-size: 0.78rem; line-height: 1.5; }
+
+.left-footer { margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+.left-footer-text { color: rgba(255,255,255,0.3); font-size: 0.75rem; line-height: 1.6; }
+.left-gov-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.gov-tag {
+  background: rgba(255,107,0,0.1);
+  border: 1px solid rgba(255,107,0,0.2);
+  color: var(--saffron-light);
+  font-size: 0.65rem;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ── RIGHT PANEL ── */
+.auth-right {
+  background: white;
+  padding: 48px 44px;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+.auth-right::-webkit-scrollbar { width: 4px; }
+.auth-right::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 4px; }
+
+/* ── TAB SWITCHER ── */
+.auth-tabs {
+  display: flex;
+  background: var(--gray-100);
+  border-radius: 14px;
+  padding: 4px;
+  margin-bottom: 36px;
+  gap: 4px;
+}
+.auth-tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.auth-tab.active {
+  background: white;
+  color: var(--saffron);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* ── FORM PANELS ── */
+.form-panel { display: none; animation: panelIn 0.35s ease both; }
+.form-panel.active { display: block; }
+@keyframes panelIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── FORM HEADER ── */
+.form-logo { font-family: 'Yatra One', cursive; font-size: 1.2rem; color: var(--saffron); margin-bottom: 6px; }
+.form-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; color: var(--navy); margin-bottom: 6px; }
+.form-subtitle { color: var(--gray-500); font-size: 0.875rem; margin-bottom: 28px; line-height: 1.6; }
+
+/* ── FORM ELEMENTS ── */
+.form-group { margin-bottom: 18px; }
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.82rem;
+  margin-bottom: 7px;
+  letter-spacing: 0.3px;
+}
+.form-label span { color: var(--saffron); }
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--navy);
+  background: white;
+  transition: all 0.2s;
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.08);
+}
+.form-input::placeholder { color: #bbb; }
+.form-input:hover:not(:focus) { border-color: var(--gray-500); }
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.form-hint { font-size: 0.75rem; color: var(--gray-500); margin-top: 5px; line-height: 1.5; }
+
+/* ── PASSWORD FIELD ── */
+.password-wrap { position: relative; }
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-500);
+  font-size: 1rem;
+  padding: 4px;
+  transition: color 0.2s;
+}
+.password-toggle:hover { color: var(--saffron); }
+
+/* ── ROLE SELECTOR ── */
+.role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.role-option {
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  background: white;
+}
+.role-option:hover { border-color: rgba(255,107,0,0.4); background: var(--cream); }
+.role-option.selected { border-color: var(--saffron); background: linear-gradient(135deg, #fff3e0, #fff8f0); }
+.role-option-icon { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+.role-option-label { font-size: 0.75rem; font-weight: 600; color: var(--navy); }
+.role-option-desc { font-size: 0.65rem; color: var(--gray-500); }
+
+/* ── VISA ACCORDION ── */
+.visa-accordion {
+  border: 1.5px solid rgba(255,107,0,0.2);
+  border-radius: 14px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.visa-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, var(--cream), var(--cream-warm));
+  cursor: pointer;
+  user-select: none;
+}
+.visa-accordion-title { font-weight: 700; color: var(--saffron-dark); font-size: 0.875rem; display: flex; align-items: center; gap: 8px; }
+.visa-accordion-arrow { color: var(--saffron); font-size: 0.8rem; transition: transform 0.3s; }
+.visa-accordion-body { padding: 18px; background: white; display: none; border-top: 1px solid rgba(255,107,0,0.1); }
+.visa-accordion.open .visa-accordion-body { display: block; }
+.visa-accordion.open .visa-accordion-arrow { transform: rotate(180deg); }
+
+/* ── OVERSTAY ALERT ── */
+.overstay-alert {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border: 1px solid rgba(220,38,38,0.25);
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  display: none;
+}
+.overstay-alert-title { color: var(--red-alert); font-weight: 700; font-size: 0.82rem; margin-bottom: 4px; }
+.overstay-alert-desc { color: #7f1d1d; font-size: 0.78rem; line-height: 1.6; }
+.overstay-alert.show { display: block; animation: alertPop 0.3s ease; }
+@keyframes alertPop { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+
+/* ── SUBMIT BUTTON ── */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dark));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.3s;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+}
+.btn-submit:hover {
+  box-shadow: 0 10px 30px rgba(255,107,0,0.4);
+  transform: translateY(-2px);
+}
+.btn-submit:active { transform: translateY(0); }
+.btn-submit.loading { pointer-events: none; opacity: 0.8; }
+
+/* ── DIVIDER ── */
+.form-divider {
+  text-align: center;
+  color: var(--gray-500);
+  font-size: 0.8rem;
+  margin: 18px 0;
+  position: relative;
+}
+.form-divider::before, .form-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: var(--gray-200);
+}
+.form-divider::before { left: 0; }
+.form-divider::after { right: 0; }
+
+/* ── SWITCH LINK ── */
+.form-switch { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--gray-500); }
+.form-switch a { color: var(--saffron); font-weight: 700; cursor: pointer; text-decoration: none; }
+.form-switch a:hover { text-decoration: underline; }
+
+/* ── DEMO BOX ── */
+.demo-box {
+  background: var(--gray-100);
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+.demo-box strong { color: var(--saffron-dark); }
+
+/* ── VERIFIED BADGE ── */
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  color: var(--india-green);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid rgba(19,136,8,0.2);
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  z-index: 3000;
+  transform: translateX(140%);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  max-width: 340px;
+  line-height: 1.5;
+}
+.toast.show { transform: translateX(0); }
+.toast.success { background: linear-gradient(135deg, #ecfdf5, #d1fae5); color: #065f46; border: 1px solid rgba(6,95,70,0.2); }
+.toast.error   { background: linear-gradient(135deg, #fef2f2, #fee2e2); color: #991b1b; border: 1px solid rgba(153,27,27,0.2); }
+.toast.warning { background: linear-gradient(135deg, #fffbeb, #fef3c7); color: #92400e; border: 1px solid rgba(146,64,14,0.2); }
+
+/* ── FOOTER BAR ── */
+.auth-page-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 16px;
+  color: rgba(255,255,255,0.25);
+  font-size: 0.75rem;
+}
+.auth-page-footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+.auth-page-footer a:hover { color: var(--saffron-light); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .auth-container { grid-template-columns: 1fr; max-width: 480px; }
+  .auth-left { padding: 36px 28px; display: none; } /* Hide left panel on mobile */
+  .auth-right { padding: 36px 28px; max-height: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .role-selector { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .auth-right { padding: 28px 22px; }
+  .role-selector { grid-template-columns: 1fr 1fr; }
+  .form-title { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP TRICOLOR BAR -->
+<div class="tricolor-bar"></div>
+
+<!-- BACKGROUND DECORATIONS -->
+<div class="bg-mandala"></div>
+<div class="bg-dots"></div>
+
+<!-- MAIN PAGE WRAP -->
+<div class="page-wrap">
+  <div class="auth-container">
+
+    <!-- ═══ LEFT PANEL ═══ -->
+    <div class="auth-left">
+      <div>
+        <div class="left-logo">
+          <div class="left-logo-icon">🇮🇳</div>
+          <div>
+            <div class="left-logo-text">यात्रा YATRA</div>
+            <div class="left-logo-sub">Incredible India</div>
+          </div>
+        </div>
+
+        <div class="left-devanagari">अतुल्य भारत की यात्रा</div>
+        <h2 class="left-headline">Your Journey<br>Begins <span>Here</span></h2>
+        <p class="left-desc">India's most trusted tourism platform — verified by government, powered by AI, designed for safe and seamless travel.</p>
+
+        <div class="left-features">
+          <div class="left-feature">
+            <div class="left-feature-icon">🛂</div>
+            <div class="left-feature-text">
+              <div class="left-feature-title">Real-Time Visa Tracker</div>
+              <div class="left-feature-desc">Never overstay — get alerts before your visa expires</div>
+            </div>
+          </div>
+          <div class="left-feature">
+            <div class="left-feature-icon">🆔</div>
+            <div class="left-feature-text">
+              <div class="left-feature-title">Govt-Grade Verification</div>
+              <div class="left-feature-desc">DigiLocker, Aadhaar eKYC & Passport verification</div>
+            </div>
+          </div>
+          <div class="left-feature">
+            <div class="left-feature-icon">🤖</div>
+            <div class="left-feature-text">
+              <div class="left-feature-title">AI Travel Assistant</div>
+              <div class="left-feature-desc">ASI & Ministry of Tourism powered chatbot</div>
+            </div>
+          </div>
+          <div class="left-feature">
+            <div class="left-feature-icon">🆘</div>
+            <div class="left-feature-text">
+              <div class="left-feature-title">24/7 Emergency Support</div>
+              <div class="left-feature-desc">Tourist Helpline 1363 integrated into your account</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="left-footer">
+        <div class="left-footer-text">Data verified by official Government of India portals</div>
+        <div class="left-gov-tags">
+          <span class="gov-tag">Ministry of Tourism</span>
+          <span class="gov-tag">ASI</span>
+          <span class="gov-tag">FRRO</span>
+          <span class="gov-tag">DigiLocker</span>
+          <span class="gov-tag">data.gov.in</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RIGHT PANEL ═══ -->
+    <div class="auth-right">
+
+      <!-- TAB SWITCHER -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">🔐 Login</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">🚀 Register</button>
+      </div>
+
+      <!-- ── LOGIN FORM ── -->
+      <div class="form-panel active" id="panelLogin">
+        <div class="form-logo">यात्रा</div>
+        <h2 class="form-title">Welcome Back!</h2>
+        <p class="form-subtitle">Login to access your visa tracker, travel dashboard, and AI assistant.</p>
+
+        <div class="form-group">
+          <label class="form-label">Email Address <span>*</span></label>
+          <input type="email" class="form-input" id="loginEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password <span>*</span></label>
+          <div class="password-wrap">
+            <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+            <button class="password-toggle" onclick="togglePassword('loginPassword', this)" type="button">👁️</button>
+          </div>
+        </div>
+
+        <button class="btn-submit" onclick="handleLogin()" id="loginBtn">
+          🔐 Login to Yatra
+        </button>
+
+        <div class="demo-box">
+          🧪 <strong>Demo mode:</strong> Use <strong>test@yatra.in</strong> / <strong>password123</strong> to explore without a backend.
+        </div>
+
+        <div class="form-switch">
+          Don't have an account? <a onclick="switchTab('register')">Register here →</a>
+        </div>
+
+        <div class="form-divider">or</div>
+        <div style="text-align:center;margin-top:4px;">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
+            <a href="https://indianfrro.gov.in" target="_blank" style="font-size:0.75rem;color:var(--saffron);text-decoration:none;font-weight:600;">🌐 FRRO Portal</a>
+            <span style="color:var(--gray-200);">|</span>
+            <a href="https://indianvisaonline.gov.in" target="_blank" style="font-size:0.75rem;color:var(--saffron);text-decoration:none;font-weight:600;">✈️ e-Visa Portal</a>
+            <span style="color:var(--gray-200);">|</span>
+            <a href="tel:1363" style="font-size:0.75rem;color:var(--saffron);text-decoration:none;font-weight:600;">📞 Helpline 1363</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── REGISTER FORM ── -->
+      <div class="form-panel" id="panelRegister">
+        <div class="form-logo">यात्रा</div>
+        <h2 class="form-title">Start Your Yatra</h2>
+        <p class="form-subtitle">Create your account to get visa alerts, AI travel guidance, and emergency support.</p>
+
+        <!-- Role Selector -->
+        <div class="form-group">
+          <label class="form-label">I am a <span>*</span></label>
+          <div class="role-selector" id="roleSelector">
+            <div class="role-option selected" onclick="selectRole(this, 'tourist')">
+              <span class="role-option-icon">🌍</span>
+              <div class="role-option-label">Int'l Tourist</div>
+              <div class="role-option-desc">Foreign visitor</div>
+            </div>
+            <div class="role-option" onclick="selectRole(this, 'domestic')">
+              <span class="role-option-icon">🇮🇳</span>
+              <div class="role-option-label">Domestic</div>
+              <div class="role-option-desc">Indian traveller</div>
+            </div>
+            <div class="role-option" onclick="selectRole(this, 'operator')">
+              <span class="role-option-icon">🏨</span>
+              <div class="role-option-label">Operator</div>
+              <div class="role-option-desc">Hotel / Tour co.</div>
+            </div>
+            <div class="role-option" onclick="selectRole(this, 'guide')">
+              <span class="role-option-icon">🎤</span>
+              <div class="role-option-label">Guide</div>
+              <div class="role-option-desc">Certified guide</div>
+            </div>
+          </div>
+          <input type="hidden" id="selectedRole" value="tourist">
+        </div>
+
+        <!-- Name & Phone -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name <span>*</span></label>
+            <input type="text" class="form-input" id="regName" placeholder="As per passport / ID" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-input" id="regPhone" placeholder="+91 or country code" autocomplete="tel">
+          </div>
+        </div>
+
+        <!-- Email & Password -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email <span>*</span></label>
+            <input type="email" class="form-input" id="regEmail" placeholder="your@email.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password <span>*</span></label>
+            <div class="password-wrap">
+              <input type="password" class="form-input" id="regPassword" placeholder="Min. 6 characters" autocomplete="new-password">
+              <button class="password-toggle" onclick="togglePassword('regPassword', this)" type="button">👁️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visa Accordion (for tourists) -->
+        <div class="visa-accordion open" id="visaAccordion">
+          <div class="visa-accordion-header" onclick="toggleAccordion()">
+            <span class="visa-accordion-title">🛂 Tourist Visa Details <span class="verified-badge">✅ Govt Tracked</span></span>
+            <span class="visa-accordion-arrow">▼</span>
+          </div>
+          <div class="visa-accordion-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Nationality / Country</label>
+                <input type="text" class="form-input" id="regNationality" placeholder="e.g. United States">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Passport Number</label>
+                <input type="text" class="form-input" id="regPassport" placeholder="A1234567">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Visa Type</label>
+                <select class="form-input form-select" id="regVisaType">
+                  <option value="e-Tourist">e-Tourist Visa</option>
+                  <option value="Tourist">Tourist Visa (Sticker)</option>
+                  <option value="Business">Business Visa</option>
+                  <option value="Medical">Medical Visa</option>
+                  <option value="Student">Student Visa</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Visa Number</label>
+                <input type="text" class="form-input" id="regVisaNumber" placeholder="IND2024XXXXXXXXXX">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Entry Date to India</label>
+                <input type="date" class="form-input" id="regEntryDate">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Visa Expiry Date <span>*</span></label>
+                <input type="date" class="form-input" id="regExpiryDate" oninput="checkExpiryDate()">
+              </div>
+            </div>
+
+            <!-- Overstay Alert -->
+            <div class="overstay-alert" id="overstayAlert">
+              <div class="overstay-alert-title">🚨 Visa Appears Expired!</div>
+              <div class="overstay-alert-desc">If you are currently in India, contact FRRO immediately.<br>📞 <strong>1800-11-1363</strong> &nbsp;|&nbsp; 🌐 <strong>indianfrro.gov.in</strong><br>Overstaying is an offence under the Foreigners Act 1946.</div>
+            </div>
+
+            <div class="form-hint">🔒 Your visa data is encrypted and cross-referenced with FRRO for overstay prevention. You will receive proactive alerts before your visa expires.</div>
+          </div>
+        </div>
+
+        <!-- Emergency Contact -->
+        <div class="form-group">
+          <label class="form-label">Emergency Contact Name</label>
+          <input type="text" class="form-input" id="regEmergencyName" placeholder="Family member / Friend name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Emergency Contact Phone</label>
+          <input type="tel" class="form-input" id="regEmergencyPhone" placeholder="International number with country code">
+          <div class="form-hint">This contact will be notified in case of emergency or visa issues.</div>
+        </div>
+
+        <button class="btn-submit" onclick="handleRegister()" id="registerBtn">
+          🚀 Create My Yatra Account
+        </button>
+
+        <div class="form-switch">
+          Already have an account? <a onclick="switchTab('login')">Login here →</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- end auth-right -->
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<div class="auth-page-footer">
+  🇮🇳 Yatra — Incredible India &nbsp;|&nbsp;
+  <a href="https://tourism.gov.in" target="_blank">Ministry of Tourism</a> &nbsp;|&nbsp;
+  <a href="https://indianfrro.gov.in" target="_blank">FRRO</a> &nbsp;|&nbsp;
+  <a href="tel:1363">📞 Helpline 1363</a>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────────
+const API_BASE = 'http://localhost:5000/api';
+let currentRole = 'tourist';
+
+// ── TABS ──────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
+  document.getElementById('panelLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('panelRegister').classList.toggle('active', tab === 'register');
+}
+
+// ── ROLE SELECTOR ──────────────────────────────────────────────────────────
+function selectRole(el, role) {
+  document.querySelectorAll('.role-option').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  currentRole = role;
+  document.getElementById('selectedRole').value = role;
+  // Show/hide visa accordion
+  const acc = document.getElementById('visaAccordion');
+  acc.style.display = (role === 'domestic' || role === 'guide') ? 'none' : 'block';
+}
+
+// ── ACCORDION ─────────────────────────────────────────────────────────────
+function toggleAccordion() {
+  document.getElementById('visaAccordion').classList.toggle('open');
+}
+
+// ── PASSWORD TOGGLE ────────────────────────────────────────────────────────
+function togglePassword(fieldId, btn) {
+  const field = document.getElementById(fieldId);
+  const isText = field.type === 'text';
+  field.type = isText ? 'password' : 'text';
+  btn.textContent = isText ? '👁️' : '🙈';
+}
+
+// ── EXPIRY DATE CHECK ──────────────────────────────────────────────────────
+function checkExpiryDate() {
+  const val = document.getElementById('regExpiryDate').value;
+  const alert = document.getElementById('overstayAlert');
+  if (val && new Date(val) < new Date()) {
+    alert.classList.add('show');
+  } else {
+    alert.classList.remove('show');
+  }
+}
+
+// ── TOAST ──────────────────────────────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+// ── LOGIN ──────────────────────────────────────────────────────────────────
+async function handleLogin() {
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const btn      = document.getElementById('loginBtn');
+
+  if (!email || !password) return showToast('Please enter your email and password.', 'error');
+
+  // Demo shortcut
+  if (email === 'test@yatra.in' && password === 'password123') {
+    btn.textContent = '✅ Logged in! Redirecting...';
+    showToast('🙏 Welcome back, Raj Sharma! (Demo mode)');
+    setTimeout(() => btn.textContent = '🔐 Login to Yatra', 2500);
+    return;
+  }
+
+  btn.textContent = '⏳ Logging in...';
+  btn.classList.add('loading');
+
+  try {
+    const res  = await fetch(`${API_BASE}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem('yatraToken', data.token);
+      localStorage.setItem('yatraUser', JSON.stringify(data.user));
+      showToast(`🙏 Welcome back, ${data.user.fullName}!`);
+      btn.textContent = '✅ Success! Redirecting...';
+      setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+    } else {
+      showToast(data.message || 'Login failed. Check credentials.', 'error');
+      btn.textContent = '🔐 Login to Yatra';
+    }
+  } catch (err) {
+    showToast('Backend not connected. Try demo: test@yatra.in / password123', 'warning');
+    btn.textContent = '🔐 Login to Yatra';
+  }
+  btn.classList.remove('loading');
+}
+
+// ── REGISTER ───────────────────────────────────────────────────────────────
+async function handleRegister() {
+  const name          = document.getElementById('regName').value.trim();
+  const email         = document.getElementById('regEmail').value.trim();
+  const password      = document.getElementById('regPassword').value;
+  const phone         = document.getElementById('regPhone').value;
+  const role          = document.getElementById('selectedRole').value;
+  const nationality   = document.getElementById('regNationality').value;
+  const passportNumber = document.getElementById('regPassport').value;
+  const visaType      = document.getElementById('regVisaType').value;
+  const visaNumber    = document.getElementById('regVisaNumber').value;
+  const entryDate     = document.getElementById('regEntryDate').value;
+  const expiryDate    = document.getElementById('regExpiryDate').value;
+  const emergencyName = document.getElementById('regEmergencyName').value;
+  const emergencyPhone= document.getElementById('regEmergencyPhone').value;
+  const btn           = document.getElementById('registerBtn');
+
+  if (!name)     return showToast('Full name is required.', 'error');
+  if (!email)    return showToast('Email address is required.', 'error');
+  if (!password) return showToast('Password is required.', 'error');
+  if (password.length < 6) return showToast('Password must be at least 6 characters.', 'error');
+
+  // Warn but don't block if expiry is in the past
+  if (expiryDate && new Date(expiryDate) < new Date()) {
+    const confirm = window.confirm('⚠️ The visa expiry date you entered is in the past. This may indicate overstay. Continue registration?');
+    if (!confirm) return;
+  }
+
+  btn.textContent = '⏳ Creating account...';
+  btn.classList.add('loading');
+
+  const payload = {
+    fullName: name, email, password, phone,
+    role: role === 'domestic' ? 'tourist' : role,
+    nationality, passportNumber, visaType, visaNumber, entryDate, expiryDate,
+    emergency: { contactName: emergencyName, contactPhone: emergencyPhone },
+  };
+
+  try {
+    const res  = await fetch(`${API_BASE}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem('yatraToken', data.token);
+      localStorage.setItem('yatraUser', JSON.stringify(data.user));
+      showToast(`🎉 Welcome to Yatra, ${name}! Your account is ready.`);
+      btn.textContent = '✅ Account Created! Redirecting...';
+      setTimeout(() => { window.location.href = 'index.html'; }, 1800);
+    } else {
+      showToast(data.message || 'Registration failed. Please try again.', 'error');
+      btn.textContent = '🚀 Create My Yatra Account';
+    }
+  } catch (err) {
+    // Demo fallback — no backend
+    showToast(`🎉 Welcome to Yatra, ${name}! (unable to login)`, 'success');
+    btn.textContent = '✅ Account Created!';
+    setTimeout(() => btn.textContent = '🚀 Create My Yatra Account', 3000);
+  }
+  btn.classList.remove('loading');
+}
+
+// ── ENTER KEY SUPPORT ──────────────────────────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    if (document.getElementById('panelLogin').classList.contains('active')) handleLogin();
+    else handleRegister();
+  }
+});
+</script>
+</body>
+</html>
