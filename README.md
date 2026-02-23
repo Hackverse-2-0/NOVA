@@ -1,41 +1,25 @@
-# 🏆 HackVerse - Team Repository
-
-Welcome to your official team repository! This is your workspace for the duration of the hackathon. Please read the rules and evaluation guidelines carefully before you begin coding.
-
-## Hackathon Rules & Evaluation Process
-
-To ensure fairness and track your progress, this hackathon features a strict two-phase evaluation process. **You must push your code to this repository to be evaluated.** Code residing only on your local machines will not be graded.
-
-### Evaluation 1: The Midpoint Check
-* **Deadline:** 12:15 PM
-* **Requirement:** You must have your initial project structure and foundational code pushed to the `main` branch. 
-* **Purpose:** This check ensures your team is on track, actively collaborating, and has a viable concept in motion. Mentors/Judges will review your commit history and current progress.
-
-### Evaluation 2: The Final Submission
-* **Deadline:** 5:00 PM
-* **Requirement:** Your completed project must be fully pushed to the `main` branch. 
-* **Purpose:** This is the final version of your project that will be judged for the hackathon prizes.
-
-### STRICT CODE FREEZE POLICY
-**No modifications will be accepted after the Development Time ends at 5:00 PM.** Exactly at the deadline, all team repositories will be **Archived** and converted to **Read-Only**. 
-* Any unpushed local commits will be lost and cannot be submitted.
-* Late submissions, pull requests, or requests to add "just one last fix" will not be accepted under any circumstances.
-* **Tip:** Push your code frequently! Do not wait until the last 5 minutes to push your entire project.
-
----
-
-## Project Details (Team to fill this out)
-
-*Please overwrite the information below with your actual project details before the final evaluation.*
-
+## Project Details 
+Currently Indian tourism have a huge potential with respect to the Tourism industry but due to lack of facilities it is behind many countries, So our Application helps tourist in their journey.
 ### Team Name: 
-[Enter your team name]
+[ NOVA ]
 
 ### Project Name:
-[Enter your project name]
+[ Indian Tourism Uplift ]
 
 ### Project Description:
-[Write a brief 1-2 paragraph description of what your project does, the problem it solves, and the technologies used.]
+Indian tourism currently have many problems like:-
+ 1.Unverified and scattered information given to the tourist creating a fake image of Indian tourism on global level.
+ 2.Illegal immigrants flooding into the country and government can't track them.
+ 3.Trust deficit in the travel planning platforms as they mainly focus on bookings.
+ 4.Rural tourism neglected.
+ 5.Cultural disconnect.
+ 6.And many more issues to be address.
+How our project solves the issue:-
+ 1.Provides verified and official data to the tourist's, hence giving a clear picture of Indian tourism.
+ 2.Blockchain based identity verification that can be track by the Government helping them track the tourist's.
+ 3.Provieds a cultural intelligence engine that before entering a region provides Do's and Don'ts to the user, hence providing all the information to the user about the region.
+ 4.Provides verified booking redirection.
+ 5.Promotes the untouched areas of India to the tourist.
 
 ### Setup & Installation Instructions:
 [Provide clear, step-by-step instructions on how the judges can run your project locally. Include any commands needed to install dependencies and start the application.]
